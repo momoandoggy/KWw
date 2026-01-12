@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi Kwai Pixel Activator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header .version {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #d63384;
+        }
+        
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .alert-success {
+            background: #d1e7dd;
+            border-left-color: #198754;
+        }
+        
+        .alert-info {
+            background: #cff4fc;
+            border-left-color: #0dcaf0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #00b09b, #96c93d);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .step:before {
+            content: counter(step-counter);
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .screenshot {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            border: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-book"></i> Dokumentasi Lengkap</h1>
+            <p class="version">Kwai Pixel Activator Pro v2.0</p>
+            <p style="margin-top: 20px; opacity: 0.9;">Panduan Penggunaan Sistem Aktivasi Pixel Kwai</p>
+        </header>
+        
+        <div class="content">
+            <section>
+                <h2><i class="fas fa-info-circle"></i> Pendahuluan</h2>
+                <p>Sistem Kwai Pixel Activator Pro adalah alat lengkap untuk mengaktifkan event pixel Kwai secara otomatis dan instan. Sistem ini mendukung semua event utama: PageView, Register, dan Purchase (10 BRL).</p>
+                
+                <div class="alert alert-info">
+                    <strong><i class="fas fa-lightbulb"></i> Catatan Penting:</strong> Sistem ini dirancang untuk keperluan testing dan development. Pastikan Anda memiliki izin untuk mengakses pixel yang akan diaktifkan.
+                </div>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-star"></i> Fitur Utama</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Aktivasi Instan</h3>
+                        <p>Kirim event ke pixel Kwai dalam hitungan detik. Sistem bekerja cepat tanpa delay yang berarti.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Multi Pixel Support</h3>
+                        <p>Aktifkan puluhan pixel sekaligus dengan sistem multi-threading untuk kecepatan maksimal.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-bomb"></i>
+                        <h3>Spam Mode</h3>
+                        <p>Mode khusus untuk testing intensif dengan konfigurasi spam yang dapat disesuaikan.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Real-time Monitoring</h3>
+                        <p>Pantau hasil aktivasi secara real-time dengan statistik dan log yang detail.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-file-export"></i>
+                        <h3>Batch Processing</h3>
+                        <p>Proses pixel dari file teks dengan berbagai konfigurasi dan mode operasi.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Auto Save & Backup</h3>
+                        <p>Data secara otomatis disimpan di browser dan dapat diexport kapan saja.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-play-circle"></i> Cara Penggunaan</h2>
+                
+                <div class="step">
+                    <h3>1. Single Pixel Activation</h3>
+                    <p>Untuk mengaktifkan satu pixel:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Masukkan Pixel ID di field pertama</li>
+                        <li>Pilih event yang ingin dikirim (PageView, Register, Purchase)</li>
+                        <li>Atur delay antar event jika diperlukan</li>
+                        <li>Klik tombol <code>Aktifkan Pixel</code></li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>2. Multi Pixel Activation</h3>
+                    <p>Untuk mengaktifkan banyak pixel sekaligus:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Pilih tab <code>Multi Pixel</code></li>
+                        <li>Masukkan Pixel IDs (satu per baris)</li>
+                        <li>Pilih sequence event yang diinginkan</li>
+                        <li>Atur jumlah thread untuk parallel processing</li>
+                        <li>Klik tombol <code>Aktifkan Semua Pixel</code></li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>3. Spam Mode</h3>
+                    <p>Untuk testing intensif:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Pilih tab <code>Spam Mode</code></li>
+                        <li>Masukkan Pixel ID target</li>
+                        <li>Tentukan jumlah spam (maksimal 100)</li>
+                        <li>Pilih mode spam yang diinginkan</li>
+                        <li>Atur delay antar spam event</li>
+                        <li>Klik tombol <code>Mulai Spam Mode</code></li>
+                    </ul>
+                </div>
+                
+                <div class="step">
+                    <h3>4. Batch File Processing</h3>
+                    <p>Untuk memproses dari file:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Pilih tab <code>Batch File</code></li>
+                        <li>Upload file .txt berisi Pixel IDs</li>
+                        <li>Pilih mode aktivasi (Normal/Spam/Custom)</li>
+                        <li>Tentukan jumlah iterasi per pixel</li>
+                        <li>Klik tombol <code>Proses File</code></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-code"></i> Format Pixel ID</h2>
+                <p>Pixel ID Kwai biasanya memiliki format seperti:</p>
+                <pre>
+KWAI_123456789_ABCDE
+KWAIPIX_987654321
+KPX_ABC123DEF456
+KWAI_PIXEL_XYZ789</pre>
+                
+                <div class="alert alert-warning">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Perhatian:</strong> Pastikan Pixel ID yang Anda masukkan valid. Pixel ID yang salah akan menghasilkan error.
+                </div>
+                
+                <h3>Format File Batch</h3>
+                <p>Untuk file batch processing, gunakan format:</p>
+                <pre>
+# Komentar dimulai dengan tanda #
+# Masukkan Pixel IDs di bawah ini
+
+KWAI_123456789_ABCDE
+KWAIPIX_987654321
+
+# Pixel tambahan
+KPX_ABC123DEF456</pre>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-cogs"></i> Event Configuration</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Parameter</th>
+                            <th>Nilai Default</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PageView</strong></td>
+                            <td>page_type, url</td>
+                            <td>homepage</td>
+                            <td>Event kunjungan halaman</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Register</strong></td>
+                            <td>signup_method, status</td>
+                            <td>completed</td>
+                            <td>Event pendaftaran pengguna</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Purchase</strong></td>
+                            <td>value, currency, items</td>
+                            <td>10.00 BRL</td>
+                            <td>Event pembelian dengan nilai 10 BRL</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 style="margin-top: 30px;">Custom Event Parameters</h3>
+                <p>Anda dapat menambahkan parameter custom pada event:</p>
+                <pre>
+{
+    "event_name": "Purchase",
+    "value": 10.00,
+    "currency": "BRL",
+    "custom_params": {
+        "transaction_id": "TXN123456",
+        "payment_method": "pix",
+        "customer_segment": "premium"
+    }
+}</pre>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-exclamation-triangle"></i> Troubleshooting</h2>
+                
+                <div class="alert alert-warning">
+                    <strong>Masalah: Event tidak terkirim</strong><br>
+                    <strong>Solusi:</strong> Periksa koneksi internet, pastikan Pixel ID valid, coba dengan delay lebih besar.
+                </div>
+                
+                <div class="alert alert-warning">
+                    <strong>Masalah: Error rate tinggi</strong><br>
+                    <strong>Solusi:</strong> Kurangi jumlah thread, tingkatkan delay, pastikan tidak melebihi rate limit.
+                </div>
+                
+                <div class="alert alert-warning">
+                    <strong>Masalah: Data tidak tersimpan</strong><br>
+                    <strong>Solusi:</strong> Izinkan cookies di browser, export data secara manual secara berkala.
+                </div>
+                
+                <h3>Error Codes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kode</th>
+                            <th>Deskripsi</th>
+                            <th>Solusi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>ERR_CONNECTION</code></td>
+                            <td>Gagal terkoneksi ke API</td>
+                            <td>Periksa koneksi internet</td>
+                        </tr>
+                        <tr>
+                            <td><code>ERR_TIMEOUT</code></td>
+                            <td>Timeout saat mengirim event</td>
+                            <td>Tingkatkan delay atau kurangi thread</td>
+                        </tr>
+                        <tr>
+                            <td><code>ERR_INVALID_ID</code></td>
+                            <td>Pixel ID tidak valid</td>
+                            <td>Periksa format Pixel ID</td>
+                        </tr>
+                        <tr>
+                            <td><code>ERR_RATE_LIMIT</code></td>
+                            <td>Melebihi rate limit</td>
+                            <td>Tunggu beberapa menit atau kurangi spam</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section>
+                <h2><i class="fas fa-rocket"></i> Tips & Optimasi</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>Optimasi Kecepatan</h3>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Gunakan 3-5 thread untuk multi pixel</li>
+                            <li>Delay 0.3-0.5 detik optimal</li>
+                            <li>Batasi spam maksimal 50 per session</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-database"></i>
+                        <h3>Manajemen Data</h3>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Export data secara berkala</li>
+                            <li>Gunakan file batch untuk pixel banyak</li>
+                            <li>Bersihkan log lama untuk performa</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-user-secret"></i>
+                        <h3>Keamanan</h3>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Jangan bagikan Pixel ID</li>
+                            <li>Reset statistik setelah testing</li>
+                            <li>Hapus file batch setelah digunakan</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="alert alert-success" style="margin-top: 30px;">
+                    <strong><i class="fas fa-check-circle"></i> Best Practice:</strong> Selalu test dengan 1 pixel dahulu sebelum menjalankan batch processing besar. Simpan log aktivasi untuk pelacakan.
+                </div>
+            </section>
+            
+            <section style="text-align: center; border-bottom: none;">
+                <h2><i class="fas fa-play"></i> Mulai Sekarang</h2>
+                <p>Sistem Kwai Pixel Activator Pro siap digunakan. Klik tombol di bawah untuk mulai mengaktifkan pixel.</p>
+                
+                <div style="margin: 30px 0;">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i> Buka Aplikasi
+                    </a>
+                    
+                    <a href="#" onclick="downloadSample()" class="btn btn-success">
+                        <i class="fas fa-download"></i> Download Sample File
+                    </a>
+                </div>
+                
+                <p style="color: #666; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Sistem ini berjalan 100% di browser Anda. Tidak perlu instalasi atau server.
+                </p>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Kwai Pixel Activator Pro v2.0 &copy; 2024 - Sistem Aktivasi Pixel Lengkap</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-shield-alt"></i> Secure | 
+                <i class="fas fa-bolt"></i> Fast | 
+                <i class="fas fa-check-circle"></i> Reliable
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        function downloadSample() {
+            const sampleContent = `# Kwai Pixel IDs Sample File
+# Format: satu pixel ID per baris
+# Hapus tanda '#' untuk mengaktifkan pixel
+
+# Contoh Pixel IDs:
+KWAI_123456789_ABCDE
+KWAIPIX_987654321
+KPX_ABC123DEF456
+KWAI_PIXEL_XYZ789
+
+# Tambahkan pixel ID Anda di bawah ini:
+# Pixel_1_YourIDHere
+# Pixel_2_YourIDHere
+# Pixel_3_YourIDHere`;
+            
+            const blob = new Blob([sampleContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'kwai-pixels-sample.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Sample file berhasil didownload!');
+        }
+        
+        // Tambahkan efek smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
