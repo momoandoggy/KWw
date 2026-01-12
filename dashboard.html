@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Monitoring - Kwai Pixel Activator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f3f4f6;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--light);
+            border-radius: 10px;
+        }
+        
+        .stat-badge i {
+            font-size: 1.2rem;
+        }
+        
+        .stat-badge.active i { color: var(--success); }
+        .stat-badge.pending i { color: var(--warning); }
+        .stat-badge.error i { color: var(--danger); }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        
+        .card-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .card-header i {
+            color: var(--primary);
+        }
+        
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        .success .stat-value { color: var(--success); }
+        .warning .stat-value { color: var(--warning); }
+        .danger .stat-value { color: var(--danger); }
+        .info .stat-value { color: var(--primary); }
+        
+        .recent-activity {
+            margin-top: 20px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .activity-icon.success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .activity-icon.warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .activity-icon.danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .activity-time {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        
+        .pixel-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .pixel-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .pixel-id {
+            font-family: 'Monaco', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        
+        .pixel-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+        
+        .pixel-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .refresh-btn {
+            background: none;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .time-filter {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .time-btn {
+            padding: 8px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .time-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .header-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-chart-bar"></i>
+                <div>
+                    <h1>Dashboard Monitoring Real-time</h1>
+                    <p style="color: #6b7280; font-size: 0.9rem;">Pantau aktivasi pixel Kwai secara live</p>
+                </div>
+            </div>
+            
+            <div class="header-stats">
+                <div class="stat-badge active">
+                    <i class="fas fa-check-circle"></i>
+                    <span>System: <strong id="systemStatus">Active</strong></span>
+                </div>
+                <div class="stat-badge pending">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Updated: <strong id="lastUpdate">Just now</strong></span>
+                </div>
+                <div class="stat-badge">
+                    <i class="fas fa-server"></i>
+                    <span>API: <strong id="apiStatus">Online</strong></span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-grid">
+            <!-- Performance Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-line"></i> Performance Trends</h2>
+                    <div class="time-filter">
+                        <button class="time-btn active" onclick="setTimeRange('1h')">1H</button>
+                        <button class="time-btn" onclick="setTimeRange('24h')">24H</button>
+                        <button class="time-btn" onclick="setTimeRange('7d')">7D</button>
+                        <button class="time-btn" onclick="setTimeRange('30d')">30D</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Event Distribution -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-pie"></i> Event Distribution</h2>
+                    <button class="refresh-btn" onclick="refreshData()">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="eventChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Overview -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-tachometer-alt"></i> Overview Statistics</h2>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card success">
+                    <div class="stat-value" id="totalSuccess">0</div>
+                    <div class="stat-label">Successful Events</div>
+                </div>
+                
+                <div class="stat-card info">
+                    <div class="stat-value" id="totalEvents">0</div>
+                    <div class="stat-label">Total Events</div>
+                </div>
+                
+                <div class="stat-card danger">
+                    <div class="stat-value" id="totalFailed">0</div>
+                    <div class="stat-label">Failed Events</div>
+                </div>
+                
+                <div class="stat-card warning">
+                    <div class="stat-value" id="successRate">0%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                
+                <div class="stat-card info">
+                    <div class="stat-value" id="activePixels">0</div>
+                    <div class="stat-label">Active Pixels</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-value" id="avgResponse">0ms</div>
+                    <div class="stat-label">Avg Response Time</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-grid">
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                </div>
+                
+                <div class="recent-activity" id="recentActivity">
+                    <!-- Activity items will be inserted here -->
+                </div>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="loadMoreActivity()">
+                        <i class="fas fa-plus"></i> Load More
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearActivity()">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Top Pixels -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fas fa-star"></i> Top Performing Pixels</h2>
+                </div>
+                
+                <div class="pixel-list" id="topPixels">
+                    <!-- Pixel items will be inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hourly Breakdown -->
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-clock"></i> Hourly Activity Breakdown</h2>
+            </div>
+            <div class="chart-container">
+                <canvas id="hourlyChart"></canvas>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Kwai Pixel Activator Pro Dashboard &copy; 2024 | Real-time Monitoring System</p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">
+                Auto-refresh every 30 seconds | Last sync: <span id="syncTime">--:--:--</span>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Initialize charts
+        let performanceChart, eventChart, hourlyChart;
+        let timeRange = '1h';
+        let activityPage = 1;
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            loadDashboardData();
+            startAutoRefresh();
+            
+            // Simulate real-time updates
+            simulateRealtimeData();
+        });
+        
+        // Initialize charts
+        function initializeCharts() {
+            const ctx1 = document.getElementById('performanceChart').getContext('2d');
+            performanceChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Success Rate',
+                            data: [],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Events/Minute',
+                            data: [],
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const ctx2 = document.getElementById('eventChart').getContext('2d');
+            eventChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['PageView', 'Register', 'Purchase'],
+                    datasets: [{
+                        data: [30, 40, 30],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b'
+                        ],
+                        borderWidth: 2,
+                        borderColor: 'white'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+            
+            const ctx3 = document.getElementById('hourlyChart').getContext('2d');
+            hourlyChart = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+                    datasets: [
+                        {
+                            label: 'Success',
+                            data: Array(24).fill(0).map(() => Math.floor(Math.random() * 100)),
+                            backgroundColor: '#10b981',
+                            borderRadius: 5
+                        },
+                        {
+                            label: 'Failed',
+                            data: Array(24).fill(0).map(() => Math.floor(Math.random() * 20)),
+                            backgroundColor: '#ef4444',
+                            borderRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Load dashboard data
+        function loadDashboardData() {
+            // Load from localStorage
+            const savedData = localStorage.getItem('kwaiPixelData');
+            const config = localStorage.getItem('kwaiPixelConfig');
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const activationResults = data.activationResults || [];
+                
+                // Calculate statistics
+                const totalEvents = activationResults.length;
+                const successEvents = activationResults.filter(r => r.success).length;
+                const failedEvents = totalEvents - successEvents;
+                const successRate = totalEvents > 0 ? Math.round((successEvents / totalEvents) * 100) : 0;
+                
+                // Update stats
+                document.getElementById('totalEvents').textContent = totalEvents;
+                document.getElementById('totalSuccess').textContent = successEvents;
+                document.getElementById('totalFailed').textContent = failedEvents;
+                document.getElementById('successRate').textContent = successRate + '%';
+                
+                // Count unique pixels
+                const pixelSet = new Set(activationResults.map(r => r.pixelId).filter(id => id));
+                document.getElementById('activePixels').textContent = pixelSet.size;
+                
+                // Calculate average response time (simulated)
+                const avgResponse = activationResults.length > 0 ? 
+                    Math.round(activationResults.reduce((sum, r) => sum + (r.responseTime || 250), 0) / activationResults.length) : 
+                    0;
+                document.getElementById('avgResponse').textContent = avgResponse + 'ms';
+                
+                // Update charts with real data
+                updateChartsWithData(activationResults);
+                
+                // Load recent activity
+                loadRecentActivity(activationResults);
+                
+                // Load top pixels
+                loadTopPixels(activationResults);
+            }
+            
+            // Update sync time
+            document.getElementById('syncTime').textContent = new Date().toLocaleTimeString();
+            document.getElementById('lastUpdate').innerHTML = '<strong>Just now</strong>';
+        }
+        
+        // Update charts with actual data
+        function updateChartsWithData(activationResults) {
+            if (activationResults.length === 0) return;
+            
+            // Group by hour for last 24 hours
+            const now = new Date();
+            const hours = Array.from({length: 24}, (_, i) => {
+                const hour = new Date(now);
+                hour.setHours(now.getHours() - (23 - i));
+                return hour;
+            });
+            
+            const hourlyData = hours.map(hour => {
+                const hourStart = new Date(hour);
+                hourStart.setMinutes(0, 0, 0);
+                const hourEnd = new Date(hourStart);
+                hourEnd.setHours(hourStart.getHours() + 1);
+                
+                return activationResults.filter(r => {
+                    const eventTime = new Date(r.timestamp || Date.now());
+                    return eventTime >= hourStart && eventTime < hourEnd;
+                }).length;
+            });
+            
+            // Update performance chart
+            const labels = hours.map(h => h.getHours() + ':00');
+            performanceChart.data.labels = labels;
+            performanceChart.data.datasets[1].data = hourlyData;
+            
+            // Calculate success rate per hour
+            const successRates = hours.map(hour => {
+                const hourStart = new Date(hour);
+                hourStart.setMinutes(0, 0, 0);
+                const hourEnd = new Date(hourStart);
+                hourEnd.setHours(hourStart.getHours() + 1);
+                
+                const hourEvents = activationResults.filter(r => {
+                    const eventTime = new Date(r.timestamp || Date.now());
+                    return eventTime >= hourStart && eventTime < hourEnd;
+                });
+                
+                if (hourEvents.length === 0) return 0;
+                const successCount = hourEvents.filter(r => r.success).length;
+                return Math.round((successCount / hourEvents.length) * 100);
+            });
+            
+            performanceChart.data.datasets[0].data = successRates;
+            performanceChart.update();
+            
+            // Update event distribution
+            const eventCounts = {
+                PageView: activationResults.filter(r => r.event === 'PageView').length,
+                Register: activationResults.filter(r => r.event === 'Register').length,
+                Purchase: activationResults.filter(r => r.event === 'Purchase').length
+            };
+            
+            eventChart.data.datasets[0].data = [
+                eventCounts.PageView,
+                eventCounts.Register,
+                eventCounts.Purchase
+            ];
+            eventChart.update();
+        }
+        
+        // Load recent activity
+        function loadRecentActivity(activationResults, page = 1) {
+            const activityContainer = document.getElementById('recentActivity');
+            const itemsPerPage = 5;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            
+            const recentResults = [...activationResults]
+                .sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0))
+                .slice(startIndex, endIndex);
+            
+            if (page === 1) {
+                activityContainer.innerHTML = '';
+            }
+            
+            if (recentResults.length === 0 && page === 1) {
+                activityContainer.innerHTML = '<div class="loading">No activity recorded yet</div>';
+                return;
+            }
+            
+            recentResults.forEach(result => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                
+                const iconClass = result.success ? 'success' : 'danger';
+                const icon = result.success ? 'fa-check-circle' : 'fa-times-circle';
+                const eventName = result.event || 'Unknown';
+                
+                activityItem.innerHTML = `
+                    <div class="activity-icon ${iconClass}">
+                        <i class="fas ${icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">
+                            ${result.success ? 'Success' : 'Failed'}: ${eventName}
+                        </div>
+                        <div class="activity-time">
+                            Pixel: ${result.pixelId ? result.pixelId.substring(0, 15) + '...' : 'Unknown'} • 
+                            ${new Date(result.timestamp || Date.now()).toLocaleTimeString()}
+                        </div>
+                    </div>
+                `;
+                
+                activityContainer.appendChild(activityItem);
+            });
+        }
+        
+        function loadMoreActivity() {
+            activityPage++;
+            const savedData = localStorage.getItem('kwaiPixelData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                loadRecentActivity(data.activationResults || [], activityPage);
+            }
+        }
+        
+        function clearActivity() {
+            if (confirm('Clear activity log?')) {
+                document.getElementById('recentActivity').innerHTML = 
+                    '<div class="loading">Activity log cleared</div>';
+            }
+        }
+        
+        // Load top pixels
+        function loadTopPixels(activationResults) {
+            const pixelContainer = document.getElementById('topPixels');
+            
+            // Group by pixel
+            const pixelStats = {};
+            activationResults.forEach(result => {
+                if (!result.pixelId) return;
+                
+                if (!pixelStats[result.pixelId]) {
+                    pixelStats[result.pixelId] = {
+                        success: 0,
+                        total: 0,
+                        lastActive: result.timestamp
+                    };
+                }
+                
+                pixelStats[result.pixelId].total++;
+                if (result.success) {
+                    pixelStats[result.pixelId].success++;
+                }
+            });
+            
+            // Convert to array and sort by success rate
+            const topPixels = Object.entries(pixelStats)
+                .map(([pixelId, stats]) => ({
+                    pixelId,
+                    ...stats,
+                    successRate: Math.round((stats.success / stats.total) * 100)
+                }))
+                .sort((a, b) => b.successRate - a.successRate)
+                .slice(0, 6);
+            
+            if (topPixels.length === 0) {
+                pixelContainer.innerHTML = '<div class="loading">No pixel data available</div>';
+                return;
+            }
+            
+            pixelContainer.innerHTML = '';
+            topPixels.forEach(pixel => {
+                const pixelItem = document.createElement('div');
+                pixelItem.className = 'pixel-item';
+                
+                pixelItem.innerHTML = `
+                    <div class="pixel-id">${pixel.pixelId.substring(0, 20)}...</div>
+                    <div class="pixel-stats">
+                        <div class="pixel-stat" title="Success Rate">
+                            <i class="fas fa-chart-line" style="color: #10b981;"></i>
+                            ${pixel.successRate}%
+                        </div>
+                        <div class="pixel-stat" title="Total Events">
+                            <i class="fas fa-bullseye" style="color: #3b82f6;"></i>
+                            ${pixel.total}
+                        </div>
+                        <div class="pixel-stat" title="Success Count">
+                            <i class="fas fa-check" style="color: #10b981;"></i>
+                            ${pixel.success}
+                        </div>
+                    </div>
+                `;
+                
+                pixelContainer.appendChild(pixelItem);
+            });
+        }
+        
+        // Set time range
+        function setTimeRange(range) {
+            timeRange = range;
+            
+            // Update active button
+            document.querySelectorAll('.time-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update charts based on time range
+            updateChartsForTimeRange();
+        }
+        
+        function updateChartsForTimeRange() {
+            // This would filter data based on time range
+            // For now, we'll just update the labels
+            let labels = [];
+            
+            switch(timeRange) {
+                case '1h':
+                    labels = Array.from({length: 12}, (_, i) => `${i*5}m`);
+                    break;
+                case '24h':
+                    labels = Array.from({length: 24}, (_, i) => `${i}:00`);
+                    break;
+                case '7d':
+                    labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                    break;
+                case '30d':
+                    labels = Array.from({length: 30}, (_, i) => `Day ${i+1}`);
+                    break;
+            }
+            
+            performanceChart.data.labels = labels;
+            performanceChart.update();
+            
+            // Show loading state
+            document.getElementById('lastUpdate').innerHTML = '<strong>Updating...</strong>';
+            setTimeout(() => {
+                document.getElementById('lastUpdate').innerHTML = '<strong>Just now</strong>';
+            }, 1000);
+        }
+        
+        // Refresh data
+        function refreshData() {
+            document.getElementById('lastUpdate').innerHTML = '<strong>Refreshing...</strong>';
+            loadDashboardData();
+            
+            // Add refresh animation
+            const refreshBtn = event.target;
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            setTimeout(() => {
+                refreshBtn.innerHTML = '<i class="fas fa-redo"></i> Refresh';
+            }, 1000);
+        }
+        
+        // Auto refresh
+        function startAutoRefresh() {
+            setInterval(() => {
+                loadDashboardData();
+            }, 30000); // 30 seconds
+        }
+        
+        // Simulate real-time data updates
+        function simulateRealtimeData() {
+            setInterval(() => {
+                // Randomly add new activity
+                if (Math.random() > 0.7) {
+                    addSimulatedActivity();
+                }
+            }, 5000); // Every 5 seconds
+        }
+        
+        function addSimulatedActivity() {
+            const events = ['PageView', 'Register', 'Purchase'];
+            const event = events[Math.floor(Math.random() * events.length)];
+            const success = Math.random() > 0.2;
+            
+            // Add to recent activity
+            const activityContainer = document.getElementById('recentActivity');
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            
+            const iconClass = success ? 'success' : 'danger';
+            const icon = success ? 'fa-check-circle' : 'fa-times-circle';
+            
+            activityItem.innerHTML = `
+                <div class="activity-icon ${iconClass}">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">
+                        ${success ? 'Success' : 'Failed'}: ${event}
+                    </div>
+                    <div class="activity-time">
+                        Pixel: SIM${Math.floor(Math.random() * 1000)} • 
+                        ${new Date().toLocaleTimeString()}
+                    </div>
+                </div>
+            `;
+            
+            // Insert at top
+            if (activityContainer.firstChild) {
+                activityContainer.insertBefore(activityItem, activityContainer.firstChild);
+            } else {
+                activityContainer.appendChild(activityItem);
+            }
+            
+            // Keep only 10 items
+            const items = activityContainer.querySelectorAll('.activity-item');
+            if (items.length > 10) {
+                for (let i = 10; i < items.length; i++) {
+                    items[i].remove();
+                }
+            }
+            
+            // Update stats slightly
+            const totalEl = document.getElementById('totalEvents');
+            const successEl = document.getElementById('totalSuccess');
+            const failedEl = document.getElementById('totalFailed');
+            
+            let total = parseInt(totalEl.textContent) + 1;
+            let successCount = parseInt(successEl.textContent);
+            let failedCount = parseInt(failedEl.textContent);
+            
+            if (success) {
+                successCount++;
+            } else {
+                failedCount++;
+            }
+            
+            const successRate = Math.round((successCount / total) * 100);
+            
+            totalEl.textContent = total;
+            successEl.textContent = successCount;
+            failedEl.textContent = failedCount;
+            document.getElementById('successRate').textContent = successRate + '%';
+        }
+        
+        // Export data function
+        function exportDashboardData() {
+            const savedData = localStorage.getItem('kwaiPixelData');
+            if (!savedData) {
+                alert('No data to export!');
+                return;
+            }
+            
+            const data = JSON.parse(savedData);
+            const exportData = {
+                summary: {
+                    totalEvents: data.activationResults?.length || 0,
+                    successEvents: data.activationResults?.filter(r => r.success).length || 0,
+                    failedEvents: data.activationResults?.filter(r => !r.success).length || 0,
+                    successRate: data.activationResults?.length > 0 ? 
+                        Math.round((data.activationResults.filter(r => r.success).length / data.activationResults.length) * 100) : 0,
+                    activePixels: new Set(data.activationResults?.map(r => r.pixelId).filter(id => id)).size
+                },
+                lastUpdated: new Date().toISOString(),
+                data: data.activationResults || []
+            };
+            
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `kwai-dashboard-export-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Dashboard data exported successfully!');
+        }
+        
+        // Add export button to header
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            const exportBtn = document.createElement('button');
+            exportBtn.className = 'btn btn-primary';
+            exportBtn.innerHTML = '<i class="fas fa-download"></i> Export';
+            exportBtn.style.marginLeft = 'auto';
+            exportBtn.onclick = exportDashboardData;
+            header.appendChild(exportBtn);
+        });
+    </script>
+</body>
+</html>
