@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfigurasi Lanjutan - Kwai Pixel Activator</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #7c3aed;
+            --dark: #1f2937;
+            --light: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        h1 {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .config-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .config-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+        
+        .config-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input {
+            width: auto;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+        }
+        
+        .presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .preset-btn {
+            padding: 15px;
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .preset-btn:hover {
+            background: #e5e7eb;
+            border-color: var(--primary);
+        }
+        
+        .preset-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .info-box.warning {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+        
+        .info-box.success {
+            background: #d1fae5;
+            border-left-color: #10b981;
+        }
+        
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cogs"></i> Konfigurasi Lanjutan</h1>
+            <p>Atur parameter dan pengaturan sistem Kwai Pixel Activator Pro</p>
+        </header>
+        
+        <div class="config-grid">
+            <!-- Performance Settings -->
+            <div class="config-card">
+                <div class="config-header">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h2>Pengaturan Performa</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxThreads"><i class="fas fa-microchip"></i> Max Threads</label>
+                    <select id="maxThreads">
+                        <option value="1">1 Thread (Konservatif)</option>
+                        <option value="3" selected>3 Threads (Optimal)</option>
+                        <option value="5">5 Threads (Cepat)</option>
+                        <option value="10">10 Threads (Ekstrem)</option>
+                    </select>
+                    <small>Lebih banyak thread = lebih cepat tapi lebih berat</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="requestTimeout"><i class="fas fa-hourglass-half"></i> Request Timeout (detik)</label>
+                    <input type="number" id="requestTimeout" value="10" min="5" max="60">
+                    <small>Timeout untuk setiap request ke API</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="retryAttempts"><i class="fas fa-redo"></i> Retry Attempts</label>
+                    <input type="number" id="retryAttempts" value="3" min="0" max="10">
+                    <small>Jumlah percobaan ulang jika gagal</small>
+                </div>
+                
+                <div class="info-box">
+                    <strong><i class="fas fa-info-circle"></i> Tips:</strong> Gunakan 3 threads untuk performa optimal. Tingkatkan timeout jika jaringan lambat.
+                </div>
+            </div>
+            
+            <!-- Event Settings -->
+            <div class="config-card">
+                <div class="config-header">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h2>Pengaturan Event</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-toggle-on"></i> Default Events</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="defaultPageView" checked>
+                            <label for="defaultPageView">PageView</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="defaultRegister" checked>
+                            <label for="defaultRegister">Register</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="defaultPurchase" checked>
+                            <label for="defaultPurchase">Purchase</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="purchaseValue"><i class="fas fa-money-bill-wave"></i> Default Purchase Value (BRL)</label>
+                    <input type="number" id="purchaseValue" value="10.00" step="0.01" min="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="defaultCurrency"><i class="fas fa-coins"></i> Default Currency</label>
+                    <select id="defaultCurrency">
+                        <option value="BRL" selected>BRL (Brazilian Real)</option>
+                        <option value="USD">USD (US Dollar)</option>
+                        <option value="EUR">EUR (Euro)</option>
+                        <option value="IDR">IDR (Indonesian Rupiah)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="eventDelay"><i class="fas fa-clock"></i> Default Delay (detik)</label>
+                    <input type="number" id="eventDelay" value="0.5" step="0.1" min="0.1">
+                    <small>Delay default antar event</small>
+                </div>
+            </div>
+            
+            <!-- Spam Settings -->
+            <div class="config-card">
+                <div class="config-header">
+                    <i class="fas fa-bomb"></i>
+                    <h2>Pengaturan Spam Mode</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxSpamCount"><i class="fas fa-exclamation-triangle"></i> Max Spam Count</label>
+                    <input type="number" id="maxSpamCount" value="50" min="1" max="1000">
+                    <small>Batas maksimal spam per session</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="spamProtection"><i class="fas fa-shield-alt"></i> Spam Protection</label>
+                    <select id="spamProtection">
+                        <option value="normal">Normal (10 requests/second)</option>
+                        <option value="strict" selected>Strict (5 requests/second)</option>
+                        <option value="aggressive">Aggressive (20 requests/second)</option>
+                        <option value="none">None (No limit)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-random"></i> Spam Pattern</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="spamRandom" checked>
+                            <label for="spamRandom">Random Events</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="spamAlternate" checked>
+                            <label for="spamAlternate">Alternate Register/Purchase</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="spamIncludePageView">
+                            <label for="spamIncludePageView">Include PageView</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box warning">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Peringatan:</strong> Spam berlebihan dapat menyebabkan IP diblokir. Gunakan dengan bijak.
+                </div>
+            </div>
+            
+            <!-- Data Management -->
+            <div class="config-card">
+                <div class="config-header">
+                    <i class="fas fa-database"></i>
+                    <h2>Manajemen Data</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="autoSave"><i class="fas fa-save"></i> Auto Save Interval (menit)</label>
+                    <input type="number" id="autoSave" value="5" min="1" max="60">
+                    <small>Interval auto save ke localStorage</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="maxLogs"><i class="fas fa-history"></i> Max Log Entries</label>
+                    <input type="number" id="maxLogs" value="1000" min="100" max="10000">
+                    <small>Batas maksimal entri log yang disimpan</small>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-trash-alt"></i> Auto Cleanup</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="autoCleanOld" checked>
+                            <label for="autoCleanOld">Auto clean old logs</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="autoExport" checked>
+                            <label for="autoExport">Auto export before clear</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="backupFormat"><i class="fas fa-file-export"></i> Backup Format</label>
+                    <select id="backupFormat">
+                        <option value="json">JSON (Full data)</option>
+                        <option value="csv" selected>CSV (Spreadsheet)</option>
+                        <option value="txt">TXT (Simple log)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Security Settings -->
+            <div class="config-card">
+                <div class="config-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>Pengaturan Keamanan</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-eye-slash"></i> Data Privacy</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="maskPixelIds" checked>
+                            <label for="maskPixelIds">Mask Pixel IDs in logs</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="clearOnClose">
+                            <label for="clearOnClose">Clear data on browser close</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="noTracking" checked>
+                            <label for="noTracking">Disable all tracking</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sessionTimeout"><i class="fas fa-user-clock"></i> Session Timeout (menit)</label>
+                    <input type="number" id="sessionTimeout" value="30" min="5" max="480">
+                    <small>Auto logout setelah idle</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="passwordProtect"><i class="fas fa-lock"></i> Password Protection</label>
+                    <input type="password" id="passwordProtect" placeholder="Optional password">
+                    <small>Password opsional untuk akses aplikasi</small>
+                </div>
+                
+                <div class="info-box success">
+                    <strong><i class="fas fa-check-circle"></i> Aman:</strong> Semua data disimpan lokal di browser Anda.
+                </div>
+            </div>
+            
+            <!-- Advanced API Settings -->
+            <div class="config-card">
+                <div class="config-header">
+                    <i class="fas fa-code"></i>
+                    <h2>Pengaturan API Lanjutan</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="apiEndpoint"><i class="fas fa-link"></i> Custom API Endpoint</label>
+                    <input type="text" id="apiEndpoint" placeholder="https://analytics.kwai.com/api/v1/event" value="https://analytics.kwai.com/api/v1/event">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userAgent"><i class="fas fa-user-secret"></i> Custom User Agent</label>
+                    <input type="text" id="userAgent" placeholder="Mozilla/5.0 (Windows NT 10.0; Win64; x64)">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-network-wired"></i> Proxy Settings</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="useProxy">
+                            <label for="useProxy">Use Proxy Server</label>
+                        </div>
+                    </div>
+                    <input type="text" id="proxyUrl" placeholder="http://proxy.example.com:8080" style="margin-top: 10px; display: none;">
+                </div>
+                
+                <div class="form-group">
+                    <label for="customHeaders"><i class="fas fa-heading"></i> Custom Headers (JSON)</label>
+                    <textarea id="customHeaders" rows="3" placeholder='{"X-Custom-Header": "value"}'></textarea>
+                </div>
+                
+                <div class="info-box">
+                    <strong><i class="fas fa-info-circle"></i> Catatan:</strong> Hanya ubah jika Anda paham tentang API Kwai.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Presets Section -->
+        <div class="config-card" style="margin-top: 30px;">
+            <div class="config-header">
+                <i class="fas fa-sliders-h"></i>
+                <h2>Preset Konfigurasi</h2>
+            </div>
+            
+            <div class="presets">
+                <div class="preset-btn" onclick="loadPreset('testing')">
+                    <i class="fas fa-vial"></i>
+                    <h3>Testing</h3>
+                    <small>Safe untuk testing</small>
+                </div>
+                
+                <div class="preset-btn active" onclick="loadPreset('production')">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Production</h3>
+                    <small>Optimal untuk production</small>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('aggressive')">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Aggressive</h3>
+                    <small>Maksimum kecepatan</small>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('conservative')">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Conservative</h3>
+                    <small>Maksimum stabilitas</small>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('custom')">
+                    <i class="fas fa-user-cog"></i>
+                    <h3>Custom</h3>
+                    <small>Konfigurasi manual</small>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 25px;">
+                <button class="btn" onclick="saveConfig()">
+                    <i class="fas fa-save"></i> Simpan Konfigurasi
+                </button>
+                
+                <button class="btn btn-secondary" onclick="resetConfig()">
+                    <i class="fas fa-undo"></i> Reset ke Default
+                </button>
+                
+                <button class="btn btn-secondary" onclick="exportConfig()">
+                    <i class="fas fa-download"></i> Export Config
+                </button>
+            </div>
+        </div>
+        
+        <!-- Info Section -->
+        <div class="info-box" style="margin-top: 30px;">
+            <h3><i class="fas fa-info-circle"></i> Informasi Konfigurasi</h3>
+            <p style="margin-top: 10px;">
+                Konfigurasi ini disimpan secara lokal di browser Anda. Untuk reset ke pengaturan pabrik, gunakan tombol "Reset ke Default".
+            </p>
+            <p style="margin-top: 10px;">
+                <strong>Current Config ID:</strong> <span id="configId">default_v2</span>
+                <br>
+                <strong>Last Updated:</strong> <span id="lastUpdated">-</span>
+            </p>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-btn" title="Kembali ke Aplikasi Utama">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <script>
+        // Load saved configuration
+        function loadConfig() {
+            const savedConfig = localStorage.getItem('kwaiPixelConfig');
+            if (savedConfig) {
+                const config = JSON.parse(savedConfig);
+                
+                // Load all config values
+                Object.keys(config).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = config[key];
+                        } else {
+                            element.value = config[key];
+                        }
+                    }
+                });
+                
+                document.getElementById('configId').textContent = config.configId || 'custom';
+                document.getElementById('lastUpdated').textContent = new Date(config.lastUpdated).toLocaleString() || '-';
+                
+                // Toggle proxy URL visibility
+                toggleProxyField();
+            }
+        }
+        
+        // Save configuration
+        function saveConfig() {
+            const config = {
+                configId: 'custom_' + Date.now().toString(36),
+                lastUpdated: new Date().toISOString()
+            };
+            
+            // Collect all config values
+            document.querySelectorAll('input, select, textarea').forEach(element => {
+                if (element.id) {
+                    if (element.type === 'checkbox') {
+                        config[element.id] = element.checked;
+                    } else {
+                        config[element.id] = element.value;
+                    }
+                }
+            });
+            
+            localStorage.setItem('kwaiPixelConfig', JSON.stringify(config));
+            
+            document.getElementById('configId').textContent = config.configId;
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+            
+            alert('Konfigurasi berhasil disimpan!');
+        }
+        
+        // Reset to default
+        function resetConfig() {
+            if (confirm('Reset semua pengaturan ke default?')) {
+                localStorage.removeItem('kwaiPixelConfig');
+                location.reload();
+            }
+        }
+        
+        // Export configuration
+        function exportConfig() {
+            const config = localStorage.getItem('kwaiPixelConfig');
+            if (!config) {
+                alert('Tidak ada konfigurasi yang disimpan!');
+                return;
+            }
+            
+            const blob = new Blob([config], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `kwai-config-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // Load presets
+        function loadPreset(presetName) {
+            // Remove active class from all preset buttons
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked preset
+            event.target.closest('.preset-btn').classList.add('active');
+            
+            const presets = {
+                testing: {
+                    maxThreads: '1',
+                    requestTimeout: '30',
+                    retryAttempts: '5',
+                    defaultPageView: true,
+                    defaultRegister: true,
+                    defaultPurchase: true,
+                    purchaseValue: '10.00',
+                    eventDelay: '1.0',
+                    maxSpamCount: '10',
+                    spamProtection: 'strict',
+                    spamRandom: true,
+                    spamAlternate: true,
+                    spamIncludePageView: false
+                },
+                production: {
+                    maxThreads: '3',
+                    requestTimeout: '10',
+                    retryAttempts: '3',
+                    defaultPageView: true,
+                    defaultRegister: true,
+                    defaultPurchase: true,
+                    purchaseValue: '10.00',
+                    eventDelay: '0.5',
+                    maxSpamCount: '50',
+                    spamProtection: 'strict',
+                    spamRandom: true,
+                    spamAlternate: true,
+                    spamIncludePageView: false,
+                    autoSave: '5',
+                    maxLogs: '1000',
+                    autoCleanOld: true,
+                    maskPixelIds: true
+                },
+                aggressive: {
+                    maxThreads: '10',
+                    requestTimeout: '5',
+                    retryAttempts: '1',
+                    eventDelay: '0.1',
+                    maxSpamCount: '100',
+                    spamProtection: 'aggressive',
+                    spamRandom: true,
+                    spamAlternate: false,
+                    spamIncludePageView: false
+                },
+                conservative: {
+                    maxThreads: '1',
+                    requestTimeout: '60',
+                    retryAttempts: '10',
+                    eventDelay: '2.0',
+                    maxSpamCount: '5',
+                    spamProtection: 'strict',
+                    spamRandom: false,
+                    spamAlternate: true,
+                    spamIncludePageView: true,
+                    maskPixelIds: true,
+                    clearOnClose: true,
+                    noTracking: true
+                }
+            };
+            
+            const preset = presets[presetName] || {};
+            
+            // Apply preset values
+            Object.keys(preset).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        element.checked = preset[key];
+                    } else {
+                        element.value = preset[key];
+                    }
+                }
+            });
+            
+            alert(`Preset "${presetName}" loaded!`);
+        }
+        
+        // Toggle proxy URL field
+        function toggleProxyField() {
+            const useProxy = document.getElementById('useProxy');
+            const proxyUrl = document.getElementById('proxyUrl');
+            
+            proxyUrl.style.display = useProxy.checked ? 'block' : 'none';
+            
+            useProxy.addEventListener('change', function() {
+                proxyUrl.style.display = this.checked ? 'block' : 'none';
+            });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            toggleProxyField();
+            
+            // Auto save when leaving page
+            window.addEventListener('beforeunload', function() {
+                saveConfig();
+            });
+        });
+    </script>
+</body>
+</html>
