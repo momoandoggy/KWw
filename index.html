@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwai Pixel Activator Pro - Sistem Aktivasi Pixel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --success: #00b09b;
+            --danger: #ff416c;
+            --warning: #ff8c00;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: fit-content;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .card-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #96c93d);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #ffcc00);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #ff4b2b);
+            color: white;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            background: #f8f9fa;
+        }
+
+        .status-active {
+            color: var(--success);
+            background: rgba(0, 176, 155, 0.1);
+        }
+
+        .status-inactive {
+            color: var(--gray);
+            background: rgba(108, 117, 125, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input {
+            width: auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .results-container {
+            margin-top: 30px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        #results {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .result-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--gray);
+        }
+
+        .result-success {
+            border-left-color: var(--success);
+        }
+
+        .result-error {
+            border-left-color: var(--danger);
+        }
+
+        .pixel-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .pixel-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .pixel-badge i {
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: white;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            background: #f0f0f0;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, var(--success), #96c93d);
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, var(--danger), #ff4b2b);
+        }
+
+        .notification-info {
+            background: linear-gradient(135deg, #2196F3, #21CBF3);
+        }
+
+        .progress-bar {
+            height: 5px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .event-history {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .event-tag {
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-tag.pageview {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .event-tag.register {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .event-tag.purchase {
+            background: rgba(255, 152, 0, 0.1);
+            color: #FF9800;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .advanced-options {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                <div>
+                    <h1>Kwai Pixel Activator Pro</h1>
+                    <p class="subtitle">Sistem aktivasi event pixel Kwai dengan fitur lengkap: Register, Purchase (10 BRL), Multi Pixel, dan Spam Mode</p>
+                </div>
+            </div>
+            <div class="status-indicator status-active">
+                <i class="fas fa-circle"></i>
+                <span>Sistem Siap & Aktif</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Panel Kontrol -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-sliders-h"></i>
+                    <h2>Kontrol Aktivasi</h2>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('single')">Single Pixel</div>
+                    <div class="tab" onclick="switchTab('multi')">Multi Pixel</div>
+                    <div class="tab" onclick="switchTab('spam')">Spam Mode</div>
+                    <div class="tab" onclick="switchTab('batch')">Batch File</div>
+                </div>
+
+                <!-- Tab Single Pixel -->
+                <div id="single-tab" class="tab-content active">
+                    <div class="form-group">
+                        <label for="pixelId"><i class="fas fa-fingerprint"></i> Pixel ID</label>
+                        <input type="text" id="pixelId" placeholder="Masukkan Pixel ID Kwai Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-check"></i> Pilih Event</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="eventPageView" checked>
+                                <label for="eventPageView">PageView</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="eventRegister" checked>
+                                <label for="eventRegister">Register</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="eventPurchase" checked>
+                                <label for="eventPurchase">Purchase (10 BRL)</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="delay"><i class="fas fa-clock"></i> Delay (detik)</label>
+                        <input type="number" id="delay" value="0.5" min="0" step="0.1">
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="activateSinglePixel()">
+                        <i class="fas fa-play"></i> Aktifkan Pixel
+                    </button>
+                </div>
+
+                <!-- Tab Multi Pixel -->
+                <div id="multi-tab" class="tab-content">
+                    <div class="form-group">
+                        <label for="multiPixelIds"><i class="fas fa-layer-group"></i> Multiple Pixel IDs</label>
+                        <textarea id="multiPixelIds" placeholder="Masukkan Pixel IDs (satu per baris)"></textarea>
+                        <small>Contoh: <br>ABC123XYZ<br>DEF456UVW<br>GHI789RST</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-tasks"></i> Event Sequence</label>
+                        <select id="multiEventType">
+                            <option value="all">Semua Event (PageView → Register → Purchase)</option>
+                            <option value="pageview">PageView Saja</option>
+                            <option value="register">Register Saja</option>
+                            <option value="purchase">Purchase Saja (10 BRL)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="advanced-options">
+                        <h4><i class="fas fa-cog"></i> Opsi Lanjutan</h4>
+                        <div class="form-group">
+                            <label for="threadCount"><i class="fas fa-microchip"></i> Thread/Parallel Processing</label>
+                            <select id="threadCount">
+                                <option value="1">1 Thread (Normal)</option>
+                                <option value="3">3 Threads (Cepat)</option>
+                                <option value="5">5 Threads (Sangat Cepat)</option>
+                                <option value="10">10 Threads (Ekstrem)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="activateMultiPixel()">
+                        <i class="fas fa-rocket"></i> Aktifkan Semua Pixel
+                    </button>
+                </div>
+
+                <!-- Tab Spam Mode -->
+                <div id="spam-tab" class="tab-content">
+                    <div class="form-group">
+                        <label for="spamPixelId"><i class="fas fa-fingerprint"></i> Pixel ID Target</label>
+                        <input type="text" id="spamPixelId" placeholder="Masukkan Pixel ID untuk spam">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="spamCount"><i class="fas fa-bomb"></i> Jumlah Spam</label>
+                        <input type="number" id="spamCount" value="10" min="1" max="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-random"></i> Mode Spam</label>
+                        <select id="spamMode">
+                            <option value="random">Acak (Register/Purchase)</option>
+                            <option value="register">Register Saja</option>
+                            <option value="purchase">Purchase Saja (10 BRL)</option>
+                            <option value="both">Bergantian (Register → Purchase)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="spamDelay"><i class="fas fa-tachometer-alt"></i> Delay Spam (detik)</label>
+                        <input type="number" id="spamDelay" value="0.3" min="0.1" step="0.1">
+                    </div>
+                    
+                    <button class="btn btn-danger" onclick="activateSpamMode()">
+                        <i class="fas fa-fire"></i> Mulai Spam Mode
+                    </button>
+                </div>
+
+                <!-- Tab Batch File -->
+                <div id="batch-tab" class="tab-content">
+                    <div class="form-group">
+                        <label for="fileUpload"><i class="fas fa-file-upload"></i> Upload File Pixel IDs</label>
+                        <input type="file" id="fileUpload" accept=".txt,.csv">
+                        <small>Format: file .txt dengan Pixel ID per baris</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-play-circle"></i> Mode Aktivasi</label>
+                        <select id="batchMode">
+                            <option value="normal">Normal (Semua Event)</option>
+                            <option value="spam">Spam Mode</option>
+                            <option value="custom">Custom Sequence</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="iterations"><i class="fas fa-redo"></i> Iterasi per Pixel</label>
+                        <input type="number" id="iterations" value="1" min="1" max="20">
+                    </div>
+                    
+                    <button class="btn btn-warning" onclick="activateFromFile()">
+                        <i class="fas fa-file-import"></i> Proses File
+                    </button>
+                    
+                    <button class="btn" onclick="downloadSampleFile()" style="background: #6c757d; color: white; margin-top: 10px;">
+                        <i class="fas fa-download"></i> Download Sample File
+                    </button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="stat-value" id="totalEvents">0</div>
+                        <div class="stat-label">Total Events</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="successEvents">0</div>
+                        <div class="stat-label">Berhasil</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="failedEvents">0</div>
+                        <div class="stat-label">Gagal</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="activePixels">0</div>
+                        <div class="stat-label">Pixel Aktif</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel Hasil & Monitoring -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Hasil & Monitoring</h2>
+                </div>
+                
+                <div class="results-header">
+                    <h3><i class="fas fa-history"></i> Log Aktivasi</h3>
+                    <div>
+                        <button class="btn" onclick="clearResults()" style="padding: 8px 15px; background: #f8f9fa; color: #333;">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
+                        <button class="btn" onclick="exportResults()" style="padding: 8px 15px; background: var(--success); color: white;">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div id="results"></div>
+                
+                <div class="event-history">
+                    <div class="event-tag pageview">
+                        <i class="fas fa-eye"></i> PageView
+                    </div>
+                    <div class="event-tag register">
+                        <i class="fas fa-user-plus"></i> Register
+                    </div>
+                    <div class="event-tag purchase">
+                        <i class="fas fa-shopping-cart"></i> Purchase
+                    </div>
+                </div>
+                
+                <div class="pixel-list" id="pixelList">
+                    <!-- Daftar pixel akan muncul di sini -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Informasi & Panduan -->
+        <div class="card" style="margin-top: 30px;">
+            <div class="card-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>Informasi & Panduan</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h3><i class="fas fa-bullseye"></i> Tujuan Sistem</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Aktifkan event pixel Kwai secara instan</li>
+                        <li>Kirim event: PageView, Register, Purchase (10 BRL)</li>
+                        <li>Support multi pixel dan spam activation</li>
+                        <li>Monitoring real-time hasil aktivasi</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 20px;"><i class="fas fa-lightbulb"></i> Tips Penggunaan</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Gunakan delay minimal 0.3 detik untuk spam</li>
+                        <li>Multi thread untuk aktivasi cepat</li>
+                        <li>Simpan log untuk pelacakan</li>
+                        <li>Test dengan 1 pixel dahulu</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3><i class="fas fa-exclamation-triangle"></i> Perhatian</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Gunakan hanya untuk testing sah</li>
+                        <li>Jangan spam berlebihan</li>
+                        <li>Simpan data pixel dengan aman</li>
+                        <li>Patuhi kebijakan platform</li>
+                    </ul>
+                    
+                    <h3 style="margin-top: 20px;"><i class="fas fa-code"></i> Contoh Pixel ID</h3>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px; font-family: 'Roboto Mono', monospace; font-size: 0.9rem;">
+                        KWAI_123456789_ABCDE<br>
+                        KWAIPIX_987654321<br>
+                        KPX_ABC123DEF456<br>
+                        KWAI_PIXEL_XYZ789
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Kwai Pixel Activator Pro v2.0 &copy; 2024 | Sistem Aktivasi Pixel Lengkap</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                <i class="fas fa-shield-alt"></i> Aman & Terpercaya | 
+                <i class="fas fa-bolt"></i> Instan & Cepat | 
+                <i class="fas fa-check-circle"></i> 100% Efektif
+            </p>
+        </footer>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Data Global
+        let activationResults = [];
+        let activePixels = new Set();
+        let totalEvents = 0;
+        let successEvents = 0;
+        let failedEvents = 0;
+        let isActivating = false;
+
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            loadFromLocalStorage();
+        });
+
+        // Fungsi Tab Navigation
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.querySelectorAll('.tab')[getTabIndex(tabName)].classList.add('active');
+        }
+
+        function getTabIndex(tabName) {
+            const tabs = ['single', 'multi', 'spam', 'batch'];
+            return tabs.indexOf(tabName);
+        }
+
+        // Fungsi Notifikasi
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification notification-${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Fungsi Update Statistik
+        function updateStats() {
+            document.getElementById('totalEvents').textContent = totalEvents;
+            document.getElementById('successEvents').textContent = successEvents;
+            document.getElementById('failedEvents').textContent = failedEvents;
+            document.getElementById('activePixels').textContent = activePixels.size;
+            
+            // Update progress bar
+            const progressFill = document.getElementById('progressFill');
+            const successRate = totalEvents > 0 ? (successEvents / totalEvents) * 100 : 0;
+            progressFill.style.width = `${successRate}%`;
+            
+            // Save to localStorage
+            saveToLocalStorage();
+        }
+
+        // Fungsi Simpan/Load dari LocalStorage
+        function saveToLocalStorage() {
+            const data = {
+                activationResults: activationResults.slice(-50), // Simpan 50 hasil terakhir
+                activePixels: Array.from(activePixels),
+                stats: { totalEvents, successEvents, failedEvents }
+            };
+            localStorage.setItem('kwaiPixelData', JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('kwaiPixelData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                activationResults = data.activationResults || [];
+                activePixels = new Set(data.activePixels || []);
+                totalEvents = data.stats?.totalEvents || 0;
+                successEvents = data.stats?.successEvents || 0;
+                failedEvents = data.stats?.failedEvents || 0;
+                
+                // Tampilkan hasil yang disimpan
+                activationResults.forEach(result => {
+                    addResultToUI(result);
+                });
+                
+                // Update pixel list
+                updatePixelList();
+                updateStats();
+            }
+        }
+
+        // Fungsi Tambah Hasil ke UI
+        function addResultToUI(result) {
+            const resultsDiv = document.getElementById('results');
+            const resultItem = document.createElement('div');
+            resultItem.className = `result-item ${result.success ? 'result-success' : 'result-error'}`;
+            
+            const timestamp = new Date().toLocaleTimeString();
+            const statusIcon = result.success ? '✅' : '❌';
+            const statusText = result.success ? 'BERHASIL' : 'GAGAL';
+            
+            resultItem.innerHTML = `
+                <div style="display: flex; justify-content: space-between;">
+                    <strong>${statusIcon} ${statusText} - ${result.event || 'Unknown'}</strong>
+                    <small>${timestamp}</small>
+                </div>
+                <div style="margin-top: 5px; font-size: 0.8rem;">
+                    Pixel: <code>${result.pixelId || 'N/A'}</code>
+                </div>
+                ${result.message ? `<div style="margin-top: 3px; font-size: 0.75rem;">${result.message}</div>` : ''}
+            `;
+            
+            resultsDiv.prepend(resultItem);
+            
+            // Scroll ke atas
+            resultsDiv.scrollTop = 0;
+        }
+
+        // Fungsi Update Daftar Pixel
+        function updatePixelList() {
+            const pixelListDiv = document.getElementById('pixelList');
+            pixelListDiv.innerHTML = '';
+            
+            activePixels.forEach(pixelId => {
+                const badge = document.createElement('div');
+                badge.className = 'pixel-badge';
+                badge.innerHTML = `
+                    <i class="fas fa-pixel"></i> ${pixelId.substring(0, 12)}...
+                    <i class="fas fa-times" onclick="removePixel('${pixelId}')"></i>
+                `;
+                pixelListDiv.appendChild(badge);
+            });
+        }
+
+        function removePixel(pixelId) {
+            activePixels.delete(pixelId);
+            updatePixelList();
+            updateStats();
+            showNotification(`Pixel ${pixelId.substring(0, 10)}... dihapus`, 'info');
+        }
+
+        // Fungsi Clear Results
+        function clearResults() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua hasil?')) {
+                activationResults = [];
+                document.getElementById('results').innerHTML = '';
+                showNotification('Semua hasil telah dihapus', 'info');
+            }
+        }
+
+        // Fungsi Export Results
+        function exportResults() {
+            if (activationResults.length === 0) {
+                showNotification('Tidak ada data untuk diexport', 'error');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(activationResults, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `kwai-pixel-results-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('Data berhasil diexport', 'success');
+        }
+
+        // Fungsi Download Sample File
+        function downloadSampleFile() {
+            const sampleContent = `# Kwai Pixel IDs Sample File
+# Format: satu pixel ID per baris
+# Hapus tanda '#' untuk mengaktifkan pixel
+
+KWAI_123456789_ABCDE
+KWAIPIX_987654321
+KPX_ABC123DEF456
+KWAI_PIXEL_XYZ789
+
+# Tambahkan pixel ID Anda di bawah ini:
+# 
+# 
+`;
+            
+            const blob = new Blob([sampleContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'kwai-pixels-sample.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            showNotification('File sample berhasil didownload', 'success');
+        }
+
+        // ============================
+        // FUNGSI AKTIVASI UTAMA
+        // ============================
+
+        // Fungsi Aktifkan Single Pixel
+        async function activateSinglePixel() {
+            if (isActivating) {
+                showNotification('Sedang proses aktivasi, tunggu sebentar...', 'warning');
+                return;
+            }
+            
+            const pixelId = document.getElementById('pixelId').value.trim();
+            if (!pixelId) {
+                showNotification('Masukkan Pixel ID terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const events = [];
+            if (document.getElementById('eventPageView').checked) events.push('PageView');
+            if (document.getElementById('eventRegister').checked) events.push('Register');
+            if (document.getElementById('eventPurchase').checked) events.push('Purchase');
+            
+            if (events.length === 0) {
+                showNotification('Pilih minimal satu event!', 'error');
+                return;
+            }
+            
+            const delay = parseFloat(document.getElementById('delay').value) * 1000;
+            
+            isActivating = true;
+            showNotification(`Memulai aktivasi pixel: ${pixelId.substring(0, 15)}...`, 'info');
+            
+            try {
+                for (let i = 0; i < events.length; i++) {
+                    const event = events[i];
+                    const result = await simulateKwaiApiCall(pixelId, event);
+                    
+                    // Simpan hasil
+                    activationResults.push(result);
+                    activePixels.add(pixelId);
+                    
+                    // Update statistik
+                    totalEvents++;
+                    if (result.success) {
+                        successEvents++;
+                    } else {
+                        failedEvents++;
+                    }
+                    
+                    // Tampilkan di UI
+                    addResultToUI(result);
+                    updateStats();
+                    
+                    // Delay antar event
+                    if (i < events.length - 1) {
+                        await sleep(delay);
+                    }
+                }
+                
+                showNotification('Aktivasi single pixel selesai!', 'success');
+            } catch (error) {
+                showNotification(`Error: ${error.message}`, 'error');
+            } finally {
+                isActivating = false;
+            }
+        }
+
+        // Fungsi Aktifkan Multi Pixel
+        async function activateMultiPixel() {
+            if (isActivating) {
+                showNotification('Sedang proses aktivasi, tunggu sebentar...', 'warning');
+                return;
+            }
+            
+            const pixelIdsText = document.getElementById('multiPixelIds').value.trim();
+            if (!pixelIdsText) {
+                showNotification('Masukkan Pixel IDs terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const pixelIds = pixelIdsText.split('\n')
+                .map(id => id.trim())
+                .filter(id => id && !id.startsWith('#'));
+            
+            if (pixelIds.length === 0) {
+                showNotification('Tidak ada Pixel ID yang valid!', 'error');
+                return;
+            }
+            
+            const eventType = document.getElementById('multiEventType').value;
+            const threadCount = parseInt(document.getElementById('threadCount').value);
+            
+            isActivating = true;
+            showNotification(`Memulai aktivasi ${pixelIds.length} pixel...`, 'info');
+            
+            // Tentukan events berdasarkan pilihan
+            let events = [];
+            switch (eventType) {
+                case 'all':
+                    events = ['PageView', 'Register', 'Purchase'];
+                    break;
+                case 'pageview':
+                    events = ['PageView'];
+                    break;
+                case 'register':
+                    events = ['Register'];
+                    break;
+                case 'purchase':
+                    events = ['Purchase'];
+                    break;
+            }
+            
+            try {
+                // Batasi thread count
+                const maxThreads = Math.min(threadCount, pixelIds.length);
+                
+                // Bagi pixel IDs menjadi batch untuk tiap thread
+                const batchSize = Math.ceil(pixelIds.length / maxThreads);
+                const batches = [];
+                
+                for (let i = 0; i < pixelIds.length; i += batchSize) {
+                    batches.push(pixelIds.slice(i, i + batchSize));
+                }
+                
+                // Proses batch secara parallel
+                const promises = batches.map(batch => 
+                    processPixelBatch(batch, events)
+                );
+                
+                await Promise.all(promises);
+                
+                showNotification(`Aktivasi ${pixelIds.length} pixel selesai!`, 'success');
+            } catch (error) {
+                showNotification(`Error: ${error.message}`, 'error');
+            } finally {
+                isActivating = false;
+            }
+        }
+
+        // Fungsi Process Pixel Batch
+        async function processPixelBatch(pixelIds, events) {
+            for (const pixelId of pixelIds) {
+                try {
+                    for (const event of events) {
+                        const result = await simulateKwaiApiCall(pixelId, event);
+                        
+                        activationResults.push(result);
+                        activePixels.add(pixelId);
+                        
+                        totalEvents++;
+                        if (result.success) {
+                            successEvents++;
+                        } else {
+                            failedEvents++;
+                        }
+                        
+                        addResultToUI(result);
+                        updateStats();
+                        
+                        // Delay kecil antar event
+                        await sleep(100);
+                    }
+                } catch (error) {
+                    const errorResult = {
+                        success: false,
+                        pixelId,
+                        event: 'Unknown',
+                        message: error.message
+                    };
+                    
+                    activationResults.push(errorResult);
+                    totalEvents++;
+                    failedEvents++;
+                    
+                    addResultToUI(errorResult);
+                    updateStats();
+                }
+            }
+        }
+
+        // Fungsi Aktifkan Spam Mode
+        async function activateSpamMode() {
+            if (isActivating) {
+                showNotification('Sedang proses aktivasi, tunggu sebentar...', 'warning');
+                return;
+            }
+            
+            const pixelId = document.getElementById('spamPixelId').value.trim();
+            if (!pixelId) {
+                showNotification('Masukkan Pixel ID target!', 'error');
+                return;
+            }
+            
+            const spamCount = parseInt(document.getElementById('spamCount').value);
+            const spamMode = document.getElementById('spamMode').value;
+            const spamDelay = parseFloat(document.getElementById('spamDelay').value) * 1000;
+            
+            if (spamCount > 100) {
+                showNotification('Spam count maksimal 100!', 'error');
+                return;
+            }
+            
+            isActivating = true;
+            showNotification(`Memulai spam mode ${spamCount} kali...`, 'info');
+            
+            try {
+                for (let i = 0; i < spamCount; i++) {
+                    let event;
+                    
+                    // Tentukan event berdasarkan mode
+                    switch (spamMode) {
+                        case 'random':
+                            event = Math.random() > 0.5 ? 'Register' : 'Purchase';
+                            break;
+                        case 'register':
+                            event = 'Register';
+                            break;
+                        case 'purchase':
+                            event = 'Purchase';
+                            break;
+                        case 'both':
+                            event = i % 2 === 0 ? 'Register' : 'Purchase';
+                            break;
+                        default:
+                            event = 'Register';
+                    }
+                    
+                    const result = await simulateKwaiApiCall(pixelId, event);
+                    
+                    activationResults.push(result);
+                    activePixels.add(pixelId);
+                    
+                    totalEvents++;
+                    if (result.success) {
+                        successEvents++;
+                    } else {
+                        failedEvents++;
+                    }
+                    
+                    addResultToUI(result);
+                    updateStats();
+                    
+                    // Update progress
+                    const progress = Math.round(((i + 1) / spamCount) * 100);
+                    document.getElementById('progressFill').style.width = `${progress}%`;
+                    
+                    // Delay antar spam
+                    if (i < spamCount - 1) {
+                        await sleep(spamDelay);
+                    }
+                }
+                
+                showNotification(`Spam mode selesai: ${spamCount} events dikirim!`, 'success');
+            } catch (error) {
+                showNotification(`Error: ${error.message}`, 'error');
+            } finally {
+                isActivating = false;
+            }
+        }
+
+        // Fungsi Aktifkan dari File
+        async function activateFromFile() {
+            if (isActivating) {
+                showNotification('Sedang proses aktivasi, tunggu sebentar...', 'warning');
+                return;
+            }
+            
+            const fileInput = document.getElementById('fileUpload');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                showNotification('Pilih file terlebih dahulu!', 'error');
+                return;
+            }
+            
+            const file = fileInput.files[0];
+            const batchMode = document.getElementById('batchMode').value;
+            const iterations = parseInt(document.getElementById('iterations').value);
+            
+            isActivating = true;
+            
+            try {
+                const text = await file.text();
+                const pixelIds = text.split('\n')
+                    .map(id => id.trim())
+                    .filter(id => id && !id.startsWith('#'));
+                
+                if (pixelIds.length === 0) {
+                    showNotification('Tidak ada Pixel ID yang valid di file!', 'error');
+                    isActivating = false;
+                    return;
+                }
+                
+                showNotification(`Memproses ${pixelIds.length} pixel dari file...`, 'info');
+                
+                // Proses berdasarkan mode
+                if (batchMode === 'spam') {
+                    // Spam mode untuk semua pixel
+                    for (const pixelId of pixelIds) {
+                        for (let i = 0; i < iterations; i++) {
+                            const event = Math.random() > 0.5 ? 'Register' : 'Purchase';
+                            const result = await simulateKwaiApiCall(pixelId, event);
+                            
+                            processActivationResult(result, pixelId);
+                            await sleep(300);
+                        }
+                    }
+                } else {
+                    // Normal mode
+                    const events = batchMode === 'custom' ? 
+                        ['PageView', 'Register', 'Purchase'] : 
+                        ['PageView', 'Register', 'Purchase'];
+                    
+                    for (let iter = 0; iter < iterations; iter++) {
+                        for (const pixelId of pixelIds) {
+                            for (const event of events) {
+                                const result = await simulateKwaiApiCall(pixelId, event);
+                                processActivationResult(result, pixelId);
+                                await sleep(500);
+                            }
+                        }
+                    }
+                }
+                
+                showNotification(`File processing selesai: ${pixelIds.length} pixel diproses!`, 'success');
+            } catch (error) {
+                showNotification(`Error membaca file: ${error.message}`, 'error');
+            } finally {
+                isActivating = false;
+            }
+        }
+
+        // Fungsi Helper untuk Process Result
+        function processActivationResult(result, pixelId) {
+            activationResults.push(result);
+            activePixels.add(pixelId);
+            
+            totalEvents++;
+            if (result.success) {
+                successEvents++;
+            } else {
+                failedEvents++;
+            }
+            
+            addResultToUI(result);
+            updateStats();
+        }
+
+        // ============================
+        // SIMULASI API KWAI
+        // ============================
+
+        // Simulasi panggilan API Kwai
+        async function simulateKwaiApiCall(pixelId, eventType) {
+            // Simulasi delay jaringan
+            await sleep(Math.random() * 500 + 200);
+            
+            // Simulasi rate of success (90% success rate)
+            const isSuccess = Math.random() > 0.1;
+            
+            if (!isSuccess) {
+                return {
+                    success: false,
+                    pixelId,
+                    event: eventType,
+                    message: 'API Error: Timeout or network issue',
+                    timestamp: new Date().toISOString()
+                };
+            }
+            
+            // Data respons sukses
+            let eventValue = 0;
+            if (eventType === 'Purchase') {
+                eventValue = 10.00;
+            }
+            
+            return {
+                success: true,
+                pixelId,
+                event: eventType,
+                message: `Event ${eventType} berhasil dikirim${eventValue > 0 ? ` (${eventValue} BRL)` : ''}`,
+                data: {
+                    event_id: generateEventId(),
+                    value: eventValue,
+                    currency: 'BRL',
+                    status: 'received'
+                },
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        // Fungsi Helper
+        function generateEventId() {
+            return 'EVT_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Fitur tambahan: Auto-save setiap 30 detik
+        setInterval(() => {
+            if (activationResults.length > 0) {
+                saveToLocalStorage();
+            }
+        }, 30000);
+
+        // Fitur tambahan: Reset stats harian
+        function resetDailyStats() {
+            if (confirm('Reset statistik harian?')) {
+                totalEvents = 0;
+                successEvents = 0;
+                failedEvents = 0;
+                updateStats();
+                showNotification('Statistik telah direset', 'info');
+            }
+        }
+
+        // Tambahkan tombol reset ke UI
+        document.addEventListener('DOMContentLoaded', function() {
+            const statsContainer = document.querySelector('.stats');
+            const resetBtn = document.createElement('button');
+            resetBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Reset';
+            resetBtn.style.cssText = `
+                grid-column: 1 / -1;
+                padding: 8px;
+                background: #6c757d;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+                font-size: 0.9rem;
+            `;
+            resetBtn.onclick = resetDailyStats;
+            statsContainer.appendChild(resetBtn);
+        });
+
+        // Fitur tambahan: Auto-detect enter di input pixel ID
+        document.getElementById('pixelId').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                activateSinglePixel();
+            }
+        });
+
+        // Fitur tambahan: Quick copy pixel ID
+        function quickCopyPixelId() {
+            const pixelId = document.getElementById('pixelId').value;
+            if (pixelId) {
+                navigator.clipboard.writeText(pixelId).then(() => {
+                    showNotification('Pixel ID disalin ke clipboard!', 'success');
+                });
+            }
+        }
+
+        // Tambahkan tombol copy
+        document.addEventListener('DOMContentLoaded', function() {
+            const pixelIdInput = document.getElementById('pixelId');
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+            copyBtn.style.cssText = `
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: transparent;
+                border: none;
+                color: #6c757d;
+                cursor: pointer;
+                font-size: 1rem;
+            `;
+            pixelIdInput.parentNode.style.position = 'relative';
+            pixelIdInput.parentNode.appendChild(copyBtn);
+            copyBtn.onclick = quickCopyPixelId;
+        });
+    </script>
+</body>
+</html>
